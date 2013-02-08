@@ -36,6 +36,8 @@ class testApp : public ofBaseApp{
         ofxCvGrayscaleImage bgImage, grayCam, diffImage;
 
 
-        int thresh;
+        int thresh, strIndx;
         ofxCvContourFinder finder;
+        char codeStr[28 +1];
+
 };

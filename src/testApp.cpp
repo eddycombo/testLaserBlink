@@ -22,7 +22,9 @@ void testApp::setup(){
     doTrack = false;
     doBg = true;
 
-    thresh = 40;
+    thresh = 52;
+    strIndx = 0;
+
 }
 
 
@@ -45,7 +47,18 @@ void testApp::update(){
             diffImage.threshold(thresh);
 
 
-        finder.findContours(diffImage, 10, (656*492)/3, 1, true, false);
+        finder.findContours(diffImage, 10, (656*492)/3, 1, true, true);
+
+
+        if(finder.blobs.size() > 0){
+
+                codeStr[strIndx%28] = '1';
+                strIndx++;
+        }else{
+
+                codeStr[strIndx%28] = '0';
+                strIndx++;
+        }
 
 }
 
@@ -60,7 +73,8 @@ void testApp::draw(){
 
     ofPushMatrix();
         ofSetColor(0, 255, 0);
-        ofDrawBitmapString("fRate: "+ofToString(ofGetFrameRate())+" "+"thresh: "+ofToString(thresh), 10, 470);
+        ofDrawBitmapString("fRate: "+ofToString(ofGetFrameRate())+" "+"fNum: "+ofToString(ofGetFrameNum()%66)+" "+"thresh: "+ofToString(thresh), 10, 470);
+        ofDrawBitmapString(ofToString(codeStr), 10, 450);
         ofSetColor(255, 255, 255);
     ofPopMatrix();
 }
